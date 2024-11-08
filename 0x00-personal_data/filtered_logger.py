@@ -22,13 +22,7 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         """
-        Filters values in incoming log records using filter_datum
-
-        Args:
-            record (logging.LogRecord): a log record
-
-        Returns:
-            str: the log message obfuscated
+        Filters values from the log record using filter_datum
         """
         return filter_datum(
             self.fields,
