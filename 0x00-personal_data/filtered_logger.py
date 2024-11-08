@@ -25,10 +25,7 @@ class RedactingFormatter(logging.Formatter):
         Filters values from the log record using filter_datum
         """
         return filter_datum(
-            self.fields,
-            self.REDACTION,
-            super().format(record),
-            self.SEPARATOR,
+            self.fields, self.REDACTION, super().format(record), self.SEPARATOR
         )
 
 
