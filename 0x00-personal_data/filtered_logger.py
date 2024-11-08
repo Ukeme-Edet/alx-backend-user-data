@@ -5,8 +5,6 @@ This module contains a method that returns the log message obfuscated
 import re
 from typing import List
 import logging
-import os
-import my
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
