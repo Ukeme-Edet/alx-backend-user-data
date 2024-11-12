@@ -79,7 +79,7 @@ class BasicAuth(Auth):
         i = decoded_base64_authorization_header.index(":")
         return (
             decoded_base64_authorization_header[:i],
-            decoded_base64_authorization_header[i + 1 :],
+            decoded_base64_authorization_header[i+1:],
         )
 
     def user_object_from_credentials(
