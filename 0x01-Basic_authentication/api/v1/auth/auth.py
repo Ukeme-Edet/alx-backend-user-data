@@ -25,7 +25,14 @@ class Auth:
         return (
             (path is None)
             or (excluded_paths is None or not excluded_paths)
-            or (path + ("/" if path[-1] != "/" else "") not in excluded_paths)
+            or not any(
+                (
+                    path.startswith(e[: e.rfind("*")])
+                    if e.endswith("*")
+                    else path == e
+                )
+                for e in excluded_paths
+            )
         )
 
     def authorization_header(self, request=None) -> str:
