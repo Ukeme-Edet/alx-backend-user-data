@@ -63,7 +63,8 @@ class BasicAuth(Auth):
         extract_user_credentials method
 
         Args:
-            decoded_base64_authorization_header (str): decoded_base64_authorization_header
+            decoded_base64_authorization_header (str):\
+                decoded_base64_authorization_header
 
         Returns:
             (str, str): None
