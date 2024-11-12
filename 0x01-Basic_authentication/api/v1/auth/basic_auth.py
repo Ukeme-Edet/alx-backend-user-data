@@ -91,18 +91,15 @@ class BasicAuth(Auth):
         Returns:
             TypeVar('User'): None
         """
-        if (
-            user_email is None
-            or type(user_email) is not str
-            or user_pwd is None
-            or type(user_pwd) is not str
-        ):
-            return None
         from models.user import User
 
-        user = User.search({"email": user_email})
-        if user is None:
-            return None
-        if not user.is_valid_password(user_pwd):
-            return None
-        return user
+        if type(user_email) == str and type(user_pwd) == str:
+            try:
+                users = User.search({"email": user_email})
+            except Exception:
+                return None
+            if len(users) <= 0:
+                return None
+            if users[0].is_valid_password(user_pwd):
+                return users[0]
+        return None
