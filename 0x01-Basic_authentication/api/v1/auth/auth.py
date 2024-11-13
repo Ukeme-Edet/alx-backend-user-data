@@ -29,7 +29,7 @@ class Auth:
                 (
                     path.startswith(e[: e.rfind("*")])
                     if e.endswith("*")
-                    else path == e
+                    else path + ("/" if not path.endswith("/") else "") == e
                 )
                 for e in excluded_paths
             )
