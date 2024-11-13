@@ -54,7 +54,8 @@ class SessionAuth(Auth):
             request (request, optional): The request object. Defaults to None.
 
         Returns:
-            TypeVar("User"): The user object if the session ID is found, None otherwise.
+            TypeVar("User"): The user object if the session ID is found, None\
+                otherwise.
         """
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)
