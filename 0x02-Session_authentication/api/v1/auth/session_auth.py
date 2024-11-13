@@ -61,3 +61,17 @@ class SessionAuth(Auth):
         from models.user import User
 
         return User.get(user_id)
+
+    def destroy_session(self, request=None):
+        """Delete the user session / log out.
+
+        Args:
+            request (request, optional): The request object. Defaults to None.
+
+        Returns:
+            None
+        """
+        if self.user_id_for_session_id(self.session_cookie(request)) is None:
+            return False
+        del SessionAuth.user_id_by_session_id[self.session_cookie(request)]
+        return True
