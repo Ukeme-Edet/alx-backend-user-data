@@ -2,7 +2,7 @@
 """
 Auth module
 """
-from bcrypt import hashpw, gensalt
+from bcrypt import hashpw, gensalt, checkpw
 from db import DB, User, NoResultFound
 
 
@@ -28,6 +28,23 @@ class Auth:
             raise ValueError("User {} already exists".format(email))
         except NoResultFound:
             return self._db.add_user(email, _hash_password(password))
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """
+        Validate a user's login
+
+        Args:
+            email (str): The user's email
+            password (str): The user's password
+
+        Returns:
+            bool: True if the password is valid, False otherwise
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            return checkpw(password.encode("utf-8"), user.hashed_password)
+        except NoResultFound:
+            return False
 
 
 def _hash_password(password: str) -> str:
