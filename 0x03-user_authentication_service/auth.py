@@ -3,7 +3,7 @@
 Auth module
 """
 from bcrypt import hashpw, gensalt
-from db import DB, User
+from db import DB, User, NoResultFound
 
 
 class Auth:
@@ -23,10 +23,11 @@ class Auth:
         Returns:
             User: The newly created User object
         """
-        user = self._db.find_user_by(email=email)
-        if user:
-            raise ValueError(f"User {email} already exists")
-        return self._db.add_user(email, _hash_password(password))
+        try:
+            self._db.find_user_by(email=email)
+            raise ValueError("User {} already exists".format(email))
+        except NoResultFound:
+            return self._db.add_user(email, _hash_password(password))
 
 
 def _hash_password(password: str) -> str:
