@@ -4,6 +4,7 @@ Auth module
 """
 from bcrypt import hashpw, gensalt, checkpw
 from db import DB, User, NoResultFound
+from uuid import uuid4
 
 
 class Auth:
@@ -58,3 +59,13 @@ def _hash_password(password: str) -> str:
         str: The hashed password
     """
     return hashpw(password.encode("utf-8"), gensalt())
+
+
+def _generate_uuid() -> str:
+    """
+    Generate a new UUID
+
+    Returns:
+        str: The new UUID
+    """
+    return str(uuid4())
